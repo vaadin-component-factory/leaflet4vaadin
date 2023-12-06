@@ -2,18 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.vaadin</groupId>
-	<artifactId>leaflet4vaadin</artifactId>
-	<version>0.5.1-SNAPSHOT</version>
-	<name>Leaflet4Vaadin</name>
-	<description>Integration of Leaflet map for Vaadin platform LTS 14</description>
+	<groupId>org.vaadin.addons.componentfactory</groupId>
+	<artifactId>vcf-leaflet</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Leaflet</name>
+	<description>Integration of Leaflet Map for Vaadin Flow</description>
 	<scm>
-		<url>https://github.com/Gubancs/leaflet4vaadin</url>
-		<connection>scm:git:git://https://github.com/Gubancs/leaflet4vaadin.git</connection>
-		<developerConnection>scm:git:git@https://github.com/Gubancs/leaflet4vaadin.git</developerConnection>
+		<url>https://github.com/vaadin-component-factory/vcf-leaflet</url>
+		<connection>scm:git:git://https://github.com/vaadin-component-factory/vcf-leaflet.git</connection>
+		<developerConnection>scm:git:git@https://github.com/vaadin-component-factory/vcf-leaflet.git</developerConnection>
 	</scm>
 	<properties>
-		<vaadin.version>14.2.0</vaadin.version>
+		<vaadin.version>14.10.11</vaadin.version>
 
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -22,14 +22,15 @@
 
 		<drivers.dir>${project.basedir}/drivers</drivers.dir>
 
-		<jetty.version>9.4.15.v20190215</jetty.version>
+		<jetty.version>9.4.36.v20210114</jetty.version>
 		<webapp-runner.version>9.0.31.0</webapp-runner.version>
 
 		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
 		<heroku-maven-plugin>3.0.1</heroku-maven-plugin>
 	</properties>
 	<organization>
-		<name>Vaadin Visitor</name>
+		<name>Vaadin Ltd</name>
+        <url>https://vaadin.com/</url>
 	</organization>
 	<licenses>
 		<license>
@@ -154,6 +155,13 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.30</version>
+		    <scope>provided</scope>
 		</dependency>
 
 		<dependency>

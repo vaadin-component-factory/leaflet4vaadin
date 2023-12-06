@@ -1,34 +1,10 @@
-Nowadays I'm very busy, unfortunately, I have no enough time to enhance this awesome Vaadin add-on. But its source code is available on GitHub so you can contribute if you have a feature request. Currently, this addon may have a lot of bugs so I don't recommend using this in a production environment. Of course, if you create a pull request on GitHub I will merge and release it if you want. Thank you for your understanding.
+# Leaflet for Vaadin
 
+Leaflet for Vaadin component provides a JAVA API for [Leaflet maps library](https://github.com/Leaflet/Leaflet).
 
-![Java CI with Maven](https://github.com/Gubancs/leaflet4vaadin/workflows/Java%20CI%20with%20Maven/badge.svg)
-![Vaadin Directory](https://github.com/Gubancs/leaflet4vaadin/workflows/Vaadin%20Directory/badge.svg)
+This component is based on [leaflet4vaadin](https://github.com/Gubancs/leaflet4vaadin).
 
-[![Published on vaadin.com/directory](https://img.shields.io/badge/Vaadin%20Directory-published-blue.svg?colorB=00b4f0)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Star on vaadin.com/directory](https://img.shields.io/vaadin-directory/star/leaflet4vaadin.svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Rating on vaadin.com/directory](https://img.shields.io/vaadin-directory/rating/leaflet4vaadin.svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Rating count on vaadin.com/directory](https://img.shields.io/vaadin-directory/rc/leaflet4vaadin.svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Latest version on vaadin.com/directory](https://img.shields.io/vaadin-directory/v/leaflet4vaadin.svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Latest release date on vaadin.com/directory](https://img.shields.io/vaadin-directory/rd/leaflet4vaadin.svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Code Quality Score](https://www.code-inspector.com/project/10683/score/svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-[![Code Grade](https://www.code-inspector.com/project/10683/status/svg)](https://vaadin.com/directory/component/leaflet4vaadin)
-
-# leaflet4vaadin
-
-- FRAMEWORK SUPPORT: **Polymer 3.0+Vaadin platform 14+**
-- Leaflet: https://leafletjs.com/
-- Vaadin Add-on directory:
-https://vaadin.com/directory/component/leaflet4vaadin/
-- Live demo: https://leaflet4vaadin.herokuapp.com/
-- Source Code Example with Vaadin Flow V15: https://github.com/Gubancs/leaflet4vaadin-demo
-- Feel free to donate: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=8M9BEK428U6AW&source=url
-
-<img src="https://raw.githubusercontent.com/Gubancs/leaflet4vaadin/master/demo.png" alt="Lichess homepage" title="Lichess comes with light and dark theme, this screenshot shows both." />
-
-**Leaflet4Vaadin** provides a Java API for **Leaflet**, which is a popular map implementation, similar to Google Maps.  Leaflet is lightweight and shines on mobile devices. Also it has an extensive set of add-ons, of which many are available for Vaadin too.
-With this Vaadin add-on you can use LeafletJS with the server side Java you know best, and you can easily extend it or just implement your custom plugins and integrate them.
-
-## Core Features:
+## Features
 - map configuration
 - interactive layers
 - map and layer events
@@ -41,35 +17,34 @@ With this Vaadin add-on you can use LeafletJS with the server side Java you know
 - map state functions
 - tile layers
 - GeoJSON support
-- supports Leaflet plugins (eg.: fullscreen, heatmap, markercluster)
+- support for Leaflet plugins: 
+	- [Leaflet.heat](https://github.com/Leaflet/Leaflet.heat)
+	- [leaflet.fullscreen](https://github.com/brunob/leaflet.fullscreen)
+	- [leaflet-kmz](https://github.com/Raruto/leaflet-kmz)
+	- [Leaflet.markercluster](https://github.com/Leaflet/Leaflet.markercluster)
+	- [Leaflet.Canvas-Markers](https://github.com/eJuke/Leaflet.Canvas-Markers)
+- support for [Esri Leaflet plugins](https://github.com/Esri/esri-leaflet): 
+	- L.esri.DynamicMapLayer
+	- L.esri.TiledMapLayer 
+	- L.esri.Vector.vectorBasemapLayer
 
+# Using the component in a Flow application with maven
 
-## Future improvements
-- i18n support
-- leaflet draw integration
-- design and performance improvements
-- use Typescript on client-side instead of JS
-- supports parameters in custom events
-- selenium ui tests
-- more examples
-- bugfixes
-- documentation
-
-# Using with maven
+Add the following dependencies in your pom.xml file:
 
 ```xml
 <dependency>
-   <groupId>com.vaadin</groupId>
-   <artifactId>leaflet4vaadin</artifactId>
-   <version>0.3.0-beta</version>
+   <groupId>org.vaadin.addons.componentfactory</groupId>
+   <artifactId>vcf-leaflet</artifactId>
+   <version>X.Y.Z</version>
 </dependency>
-
+```
+```xml
 <repository>
    <id>vaadin-addons</id>
    <url>https://maven.vaadin.com/vaadin-addons</url>
 </repository>
 ```
-Copy the above dependencies to your Maven pom.xml If you have any issues installing, please contact me.
 
 ## Example usage
 
@@ -82,15 +57,17 @@ leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 add(leafletMap);
 ```
 
+See more examples on [vcf-leaflet-demo](https://github.com/vaadin-component-factory/vcf-leaflet/tree/master/src/test/java/org/vaadin/addons/componentfactory/leaflet/demo/view).
+
 ## Development instructions
 
 Starting the test/demo server:
 1. Run `mvn jetty:run`.
 2. Open http://localhost:8080 in the browser.
 
+## License 
 
-## Contact
+This Add-on is distributed under Apache Licence 2.0.
 
-Name: Gabor Kokeny
-
-Email: kokeny19@gmail.com
+### Sponsored development
+Major pieces of development of this add-on has been sponsored by multiple customers of Vaadin. Read more about Expert on Demand at: [Support](https://vaadin.com/support) and [Pricing](https://vaadin.com/pricing).

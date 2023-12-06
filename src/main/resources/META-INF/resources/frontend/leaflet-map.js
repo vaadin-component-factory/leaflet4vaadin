@@ -83,7 +83,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
     console.log("LeafletMap - ready() using converter", this.leafletConverter);
 
     // init leaflet map
-    let map = this.toLeafletMap(this.mapOptions);
+    let map = this.toLeafletMap(JSON.parse(this.mapOptions));
     this.map = map;
   }
 
@@ -100,7 +100,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
       this.map.whenReady(() => {
         console.log("LeafletMap - whenReady()");
         this.map.invalidateSize();
-        this.onMapReadyEventHandler();
+        this.$server.onMapReadyEventHandler();
       });
     } else {
       console.log(
@@ -123,9 +123,13 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
     let leafletFn = target[operation.functionName];
     //console.log("LeafletMap - callLeafletFunction() - leafletFn", leafletFn);
 
-    let result = leafletFn.apply(target, leafletArgs);
-    console.log("LeafletMap - callLeafletFunction() - result", result);
-    return result;
+    if(leafletFn){
+      let result = leafletFn.apply(target, leafletArgs);
+      console.log("LeafletMap - callLeafletFunction() - result", result);
+      return result;
+    } 
+    
+    return;
   }
 
   _findTargetLayer(operation) {
@@ -206,7 +210,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
       { event: event }
     );
     layer.on(event, eventListener, this);
-  }
+   }
 
   getEventMap() {
     if (!this.eventMap) {
@@ -270,49 +274,70 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
           events: ["locationerror"],
           handler: this.onErrorEventHandler,
         },
+        {
+          events: ["tileerror", "tileload", "tileloadstart", "tileunload"],
+          handler: this.onTileEventHandler,
+        },
       ];
     }
     return this.eventMap;
   }
 
   onMouseEventEventHandler(event) {
-    console.info("LeafletMap - onMouseEventEventHandler()", event);
+    console.info("LeafletMap - onMouseEventEventHandler()", event);    
+    this.dispatchEvent( new CustomEvent("leaflet-"+ event.type, { detail: event }));
   }
   onKeyboardEventHandler(event) {
-    console.info("LeafletMap - onKeyboardEventHandler()", event);
+    console.info("LeafletMap - onKeyboardEventHandler()", event);    
+    this.dispatchEvent( new CustomEvent("leaflet-"+ event.type, { detail: event }));
   }
   onResizeEventHandler(event) {
     console.info("LeafletMap - onResizeEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("resize", { detail: event }));
   }
   onZoomAnimEventHandler(event) {
     console.info("LeafletMap - onZoomAnimEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("zoomanim", { detail: event }));
   }
   onDragEndEventHandler(event) {
     console.info("LeafletMap - onDragEndEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("dragend", { detail: event }));
   }
   onLayerEventHandler(event) {
     console.info("LeafletMap - onLayerEventHandler()", event);
+    this.dispatchEvent( new CustomEvent(event.type, { detail: event }));
   }
   onMoveEventHandler(event) {
     console.info("LeafletMap - onMoveEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("leaflet-move", { detail: event }));
   }
   onPopupEventHandler(event) {
     console.info("LeafletMap - onPopupEventHandler()", event);
+    this.dispatchEvent( new CustomEvent(event.type, { detail: event }));
   }
   onTooltipEventHandler(event) {
     console.info("LeafletMap - onTooltipEventHandler()", event);
+    this.dispatchEvent( new CustomEvent(event.type, { detail: event }));
   }
   onLocationEventHandler(event) {
     console.info("LeafletMap - onLocationEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("locationfound", { detail: event }));
   }
   onErrorEventHandler(event) {
     console.info("LeafletMap - onErrorEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("locationerror", { detail: event } ));
   }
   onLayersControlEventHandler(event) {
     console.info("LeafletMap - onLayersControlEventHandler()", event);
+    this.dispatchEvent( new CustomEvent(event.type, { detail: event }));
   }
   onBaseEventHandler(event) {
     console.info("LeafletMap - onBaseEventHandler()", event);
+    this.dispatchEvent( new CustomEvent("leaflet-"+ event.type, { detail: event }));
+  }
+  onTileEventHandler(event) {
+    console.info("LeafletMap - onTileEventHandler()", event);
+    this.dispatchEvent( new CustomEvent(event.type, { detail: event }));
   }
 }
 
