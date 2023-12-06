@@ -69,7 +69,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  * @version 1.0
  * @see LeafletControl
  */
-@NpmPackage(value = "leaflet.fullscreen", version = "1.6.0")
+@NpmPackage(value = "leaflet.fullscreen", version = "3.0.0")
 @JsModule("leaflet.fullscreen/Control.FullScreen.js")
 @CssImport(value = "leaflet.fullscreen/Control.FullScreen.css", themeFor = "leaflet-map")
 public class FullScreenControl extends LeafletControl {

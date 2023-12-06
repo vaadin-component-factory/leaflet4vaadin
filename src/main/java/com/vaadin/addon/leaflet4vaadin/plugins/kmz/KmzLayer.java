@@ -21,7 +21,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  * @since 2020-07-23
  * @version 1.0
  */
-@NpmPackage(value = "leaflet-kmz", version = "1.0.4")
+@NpmPackage(value = "leaflet-kmz", version = "1.0.9")
 @JsModule("leaflet-kmz/dist/leaflet-kmz-src.js")
 public class KmzLayer extends Layer {
 
