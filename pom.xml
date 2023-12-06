@@ -22,7 +22,7 @@
 
 		<drivers.dir>${project.basedir}/drivers</drivers.dir>
 
-		<jetty.version>9.4.15.v20190215</jetty.version>
+		<jetty.version>9.4.36.v20210114</jetty.version>
 		<webapp-runner.version>9.0.31.0</webapp-runner.version>
 
 		<maven-war-plugin.version>3.2.3</maven-war-plugin.version>
