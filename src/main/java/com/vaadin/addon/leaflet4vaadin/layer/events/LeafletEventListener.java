@@ -16,5 +16,5 @@ package com.vaadin.addon.leaflet4vaadin.layer.events;
 
 @FunctionalInterface
 public interface LeafletEventListener<T extends LeafletEvent> {
-	void handleEvent(T event);
+    void handleEvent(T event);
 }

@@ -14,52 +14,60 @@
 
 package com.vaadin.addon.leaflet4vaadin;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.concurrent.CompletableFuture;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.vaadin.addon.leaflet4vaadin.controls.LayersControl.LayerControlEventType;
-import com.vaadin.addon.leaflet4vaadin.controls.LayersControlEvent;
 import com.vaadin.addon.leaflet4vaadin.controls.LeafletControl;
 import com.vaadin.addon.leaflet4vaadin.layer.Identifiable;
 import com.vaadin.addon.leaflet4vaadin.layer.Layer;
+import com.vaadin.addon.leaflet4vaadin.layer.events.BaseLayerChangeEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.DragEndEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.DragEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.ErrorEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.KeyboardEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.LayerEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.KeyDownEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.KeyPressEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.KeyUpEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.LayerAddEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.LayerRemoveEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.LeafletEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.LeafletEventListener;
+import com.vaadin.addon.leaflet4vaadin.layer.events.LoadEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.LocationEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.MouseEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.MoveEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.PopupEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseClickEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseContextMenuEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseDoubleClickEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseDownEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseMoveEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseOutEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseOverEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MousePreClickEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MouseUpEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MoveEndEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.MoveStartEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.OverlayAddEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.OverlayRemoveEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.PopupCloseEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.PopupOpenEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.ResizeEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.TileErrorEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.TileEvent;
-import com.vaadin.addon.leaflet4vaadin.layer.events.TooltipEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.TileLoadEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.TileLoadStartEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.TileUnloadEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.TooltipCloseEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.TooltipOpenEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.UnloadEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.ViewResetEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomAnimEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomEndEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomLevelsChangeEvent;
+import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomStartEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.supports.SupportsKeyboardEvents;
 import com.vaadin.addon.leaflet4vaadin.layer.events.supports.SupportsLayerEvents;
 import com.vaadin.addon.leaflet4vaadin.layer.events.supports.SupportsLocationEvents;
 import com.vaadin.addon.leaflet4vaadin.layer.events.supports.SupportsMapEvents;
 import com.vaadin.addon.leaflet4vaadin.layer.events.supports.SupportsMouseEvents;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.DragEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.EventTypeRegistry;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.KeyboardEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.LayerEventType;
 import com.vaadin.addon.leaflet4vaadin.layer.events.types.LeafletEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.LocationEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.MapEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.MouseEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.PopupEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.TileEventType;
-import com.vaadin.addon.leaflet4vaadin.layer.events.types.TooltipEventType;
 import com.vaadin.addon.leaflet4vaadin.layer.groups.LayerGroup;
 import com.vaadin.addon.leaflet4vaadin.layer.map.functions.GeolocationFunctions;
 import com.vaadin.addon.leaflet4vaadin.layer.map.functions.MapConversionFunctions;
@@ -69,12 +77,12 @@ import com.vaadin.addon.leaflet4vaadin.layer.map.options.DefaultMapOptions;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.MapOptions;
 import com.vaadin.addon.leaflet4vaadin.layer.raster.TileLayer;
 import com.vaadin.addon.leaflet4vaadin.operations.LeafletOperation;
-import com.vaadin.addon.leaflet4vaadin.types.LatLng;
-import com.vaadin.addon.leaflet4vaadin.types.Point;
+import com.vaadin.flow.component.AttachEvent;
+import com.vaadin.flow.component.ClientCallable;
+import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
 import com.vaadin.flow.component.ComponentUtil;
-import com.vaadin.flow.component.EventData;
 import com.vaadin.flow.component.HasSize;
 import com.vaadin.flow.component.HasStyle;
 import com.vaadin.flow.component.HasTheme;
@@ -84,12 +92,22 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 import com.vaadin.flow.component.page.PendingJavaScriptResult;
 import com.vaadin.flow.component.page.PendingJavaScriptResult.JavaScriptException;
-import com.vaadin.flow.component.polymertemplate.EventHandler;
-import com.vaadin.flow.component.polymertemplate.PolymerTemplate;
 import com.vaadin.flow.internal.JsonSerializer;
 import com.vaadin.flow.shared.Registration;
-
+import elemental.json.Json;
+import elemental.json.JsonArray;
+import elemental.json.JsonObject;
 import elemental.json.JsonType;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @Tag("leaflet-map")
 @NpmPackage(value = "leaflet", version = "1.9.4")
@@ -97,7 +115,7 @@ import elemental.json.JsonType;
 @JsModule("leaflet/dist/leaflet-src.js")
 @CssImport(value = "leaflet/dist/leaflet.css", themeFor = "leaflet-map")
 @CssImport(value = "./styles/leaflet-lumo-theme.css", themeFor = "leaflet-map")
-public final class LeafletMap extends PolymerTemplate<LeafletModel> implements MapModifyStateFunctions, MapGetStateFunctions, GeolocationFunctions, MapConversionFunctions, SupportsMouseEvents,
+public final class LeafletMap extends Component implements MapModifyStateFunctions, MapGetStateFunctions, GeolocationFunctions, MapConversionFunctions, SupportsMouseEvents,
         SupportsMapEvents, SupportsLocationEvents, SupportsKeyboardEvents, SupportsLayerEvents, HasSize, HasTheme, HasStyle {
 
     private static final long serialVersionUID = 3789693345308589828L;
@@ -112,297 +130,92 @@ public final class LeafletMap extends PolymerTemplate<LeafletModel> implements M
 
     private boolean ready = false;
 
+    private Class<? extends MapOptions> optionsClass;
+    
+    private List<LeafletEventType> events = new ArrayList<>(); 
+    
+    private List<Class<? extends LeafletEvent>> eventsClasses =
+        Arrays.asList(BaseLayerChangeEvent.class, DragEndEvent.class, DragEvent.class,
+            ErrorEvent.class, KeyDownEvent.class, KeyPressEvent.class, KeyUpEvent.class,
+            LayerAddEvent.class, LayerRemoveEvent.class, LoadEvent.class, LocationEvent.class,
+            MouseClickEvent.class, MouseContextMenuEvent.class, MouseDoubleClickEvent.class,
+            MouseDownEvent.class, MouseMoveEvent.class, MouseOutEvent.class, MouseOverEvent.class,
+            MousePreClickEvent.class, MouseUpEvent.class, MoveEndEvent.class, MoveStartEvent.class,
+            OverlayAddEvent.class, OverlayRemoveEvent.class, PopupCloseEvent.class,
+            PopupOpenEvent.class, ResizeEvent.class, TileErrorEvent.class, TileLoadEvent.class,
+            TileUnloadEvent.class, TileLoadStartEvent.class, TooltipCloseEvent.class,
+            TooltipOpenEvent.class, UnloadEvent.class, ViewResetEvent.class, ZoomAnimEvent.class,
+            ZoomEndEvent.class, ZoomEvent.class, ZoomLevelsChangeEvent.class, ZoomStartEvent.class);
+
     public LeafletMap() {
         this(new DefaultMapOptions());
     }
 
     public LeafletMap(MapOptions mapOptions) {
         setId("template");
+        optionsClass = mapOptions.getClass();
         getModel().setMapOptions(mapOptions);
         setSizeFull();
+        registerListeners();
+    }  
+    
+    private LeafletModel getModel() {
+        return new LeafletModel() {
+
+            ObjectMapper objectMapper = new ObjectMapper();            
+                        
+            @Override
+            public MapOptions getMapOptions() {
+                try {
+                    String mapOptionsString = getElement().getProperty("mapOptions");
+                    objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
+                    return objectMapper.readValue(mapOptionsString, optionsClass);
+                } catch (JsonProcessingException e) {
+                    logger.error("Error retrieving map options", e);
+                    return null;
+                }
+            }
+
+            @Override
+            public void setMapOptions(MapOptions mapOptions) {
+                try {                    
+                    getElement().setProperty("mapOptions", objectMapper.writeValueAsString(mapOptions));
+                } catch (JsonProcessingException e) {
+                    logger.error("Error serializing map options", e);
+                }
+            }
+            
+            @Override
+            public List<LeafletEventType> getEvents() {
+                return events;
+            }            
+        };
+    }
+    
+    private void registerListeners() {
+      eventsClasses.forEach(c -> {
+        addListener(c, e -> {
+          Layer layer = findLayer(e.getLayerId());
+          this.fireEvent(layer, e);
+        });
+      });
+    }
+    
+    @Override
+    protected void onAttach(AttachEvent attachEvent) {
+      super.onAttach(attachEvent);
+        // set events to leaflet 
+        JsonArray jsonArray = Json.createArray();
+        for (int i = 0; i < events.size(); i++) {
+          JsonObject js = Json.createObject();
+          js.put("leafletEvent", events.get(i).name());
+          jsonArray.set(i, js);
+        }   
+        this.getElement().setPropertyJson("events", jsonArray);        
     }
 
     /**
-     * Generic event handler
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see LeafletEvent
-     */
-    @EventHandler
-    private void onBaseEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String event) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new LeafletEvent(layer, EventTypeRegistry.valueOf(event));
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when a layer is changed through the layer control.
-     * 
-     * @param layerId
-     *            the id of the layer that was added or removed.
-     * @param eventType
-     *            the type of the occurred event
-     * @see LeafletEvent
-     */
-    @EventHandler
-    private void onLayersControlEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String event, @EventData("event.name") String name) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new LayersControlEvent(layer, LayerControlEventType.valueOf(event), name);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when any mouse event fired on the layer
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see MoveEvent
-     * @see MouseEventType
-     */
-    @EventHandler
-    private void onMouseEventEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.latlng.lat") Double latitude,
-            @EventData("event.latlng.lng") Double longitude, @EventData("event.layerPoint.x") int layerPointX, @EventData("event.layerPoint.y") int layerPointY,
-            @EventData("event.containerPoint.x") int containerPointX, @EventData("event.containerPoint.y") int containerPointY) {
-
-        Layer layer = findLayer(layerId);
-        LatLng latLng = new LatLng(latitude, longitude);
-        Point layerPoint = Point.of(layerPointX, layerPointY);
-        Point containerPoint = Point.of(containerPointX, containerPointY);
-
-        LeafletEvent leafletEvent = new MouseEvent(layer, MouseEventType.valueOf(eventType), latLng, layerPoint, containerPoint);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when the layer is moved via setLatLng or by dragging.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see MoveEvent
-     * @see DragEventType
-     */
-    @EventHandler
-    private void onMoveEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.latlng.lat") Double newLat,
-            @EventData("event.latlng.lng") Double newLng, @EventData("event.oldLatLng.lat") Double oldLat, @EventData("event.oldLatLng.lng") Double oldLng) {
-
-        Layer layer = findLayer(layerId);
-        LatLng latLng = new LatLng(newLat, newLng);
-        LatLng oldLatLng = new LatLng(oldLat, oldLng);
-
-        LeafletEvent leafletEvent = new MoveEvent(layer, DragEventType.valueOf(eventType), oldLatLng, latLng);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when the user presses a key from the keyboard while the map is
-     * focused
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see KeyboardEvent
-     * @see KeyboardEventType
-     */
-    @EventHandler
-    private void onKeyboardEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.originalEvent.key") String key,
-            @EventData("event.originalEvent.code") String code, @EventData("event.originalEvent.keyCode") int keyCode, @EventData("event.originalEvent.shiftKey") boolean shiftKey,
-            @EventData("event.originalEvent.altKey") boolean altKey, @EventData("event.originalEvent.ctrlKey") boolean ctrlKey) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new KeyboardEvent(layer, KeyboardEventType.valueOf(eventType), key, code, keyCode, shiftKey, altKey, ctrlKey);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when geolocation (using the locate method) went successfully.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see LocationEvent
-     * @see LocationEventType
-     */
-    @EventHandler
-    private void onLocationEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.latlng.lat") Double latitude,
-            @EventData("event.latlng.lng") Double longitude, @EventData("event.accuracy") Double accuracy, @EventData("event.altitude") Double altitude,
-            @EventData("event.altitudeAccuracy") Double altitudeAccuracy, @EventData("event.heading") Double heading, @EventData("event.speed") Double speed,
-            @EventData("event.timestamp") Double timestamp) {
-        LatLng latlng = new LatLng(latitude, longitude);
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new LocationEvent(layer, LocationEventType.valueOf(eventType), latlng, null, accuracy, altitude, altitudeAccuracy, heading, speed, timestamp);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when geolocation (using the locate method) failed.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see ErrorEvent
-     */
-    @EventHandler
-    private void onErrorEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String event, @EventData("event.message") String message,
-            @EventData("event.code") int code) {
-        Layer layer = findLayer(layerId);
-        ErrorEvent errorEvent = new ErrorEvent(layer, EventTypeRegistry.valueOf(event), message, code);
-        fireEvent(layer, errorEvent);
-    }
-
-    /**
-     * Fired when a new layer is added to the map, or removed from the map.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see LayerEvent
-     * @see LayerEventType
-     */
-    @EventHandler
-    private void onLayerEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new LayerEvent(layer, LayerEventType.valueOf(eventType), null);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when a tile event fired on map
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see TileEvent
-     * @see TileEventType
-     */
-    @EventHandler
-    private void onTileEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.coords.x") Double coordsX,
-            @EventData("event.coords.y") Double coordsY) {
-        Layer layer = findLayer(layerId);
-        Point coords = Point.of(coordsX, coordsY);
-        LeafletEvent leafletEvent = new TileEvent(layer, TileEventType.valueOf(eventType), coords);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when there is an error loading a tile.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see TileErrorEvent
-     * @see TileEventType
-     */
-    @EventHandler
-    private void onTileErrorEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.coords.x") Double coordsX,
-            @EventData("event.coords.y") Double coordsY) {
-        Layer layer = findLayer(layerId);
-        Point coords = Point.of(coordsX, coordsY);
-        LeafletEvent leafletEvent = new TileErrorEvent(layer, TileEventType.valueOf(eventType), coords);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when the map is resized.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see ResizeEvent
-     * @see MapEventType
-     */
-    @EventHandler
-    private void onResizeEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.oldSize.x") Double oldSizeX,
-            @EventData("event.oldSize.y") Double oldSizeY, @EventData("event.newSize.x") Double newSizeX, @EventData("event.newSize.y") Double newSizeY) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new ResizeEvent(layer, Point.of(oldSizeX, oldSizeY), Point.of(newSizeX, newSizeY));
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when a popup is opened or closed in the map
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see PopupEvent
-     * @see PopupEventType
-     */
-    @EventHandler
-    private void onPopupEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String eventType) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new PopupEvent(layer, PopupEventType.valueOf(eventType), null);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when a tooltip is opened or closed in the map.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see TooltipEvent
-     * @see TooltipEventType
-     */
-    @EventHandler
-    private void onTooltipEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String eventType) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent leafletEvent = new TooltipEvent(layer, TooltipEventType.valueOf(eventType), null);
-        fireEvent(layer, leafletEvent);
-    }
-
-    /**
-     * Fired when the user stops dragging the layer.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see DragEndEvent
-     * @see DragEventType
-     */
-    @EventHandler
-    private void onDragEndEventHandler(@EventData("event.target.options.uuid") String layerId, @EventData("event.type") String eventType, @EventData("event.distance") double distance) {
-        Layer layer = findLayer(layerId);
-        LeafletEvent event = new DragEndEvent(layer, DragEventType.valueOf(eventType), distance);
-        fireEvent(layer, event);
-    }
-
-    /**
-     * Fired at least once per zoom animation. For continuous zoom, like pinch
-     * zooming, fired once per frame during zoom.
-     * 
-     * @param layerId
-     *            the id of the layer where the event occurred
-     * @param eventType
-     *            the type of the occurred event
-     * @see ZoomAnimEvent
-     * @see MapEventType
-     */
-    @EventHandler
-    private void onZoomAnimEventHandler(@EventData("target.options.uuid") String layerId, @EventData("event.zoom") int zoom, @EventData("event.center.lat") Double latitude,
-            @EventData("event.center.lng") Double longitude, @EventData("event.type") String eventType) {
-        LatLng center = new LatLng(latitude, longitude);
-        LeafletEvent event = new ZoomAnimEvent(this.mapLayer, MapEventType.valueOf(eventType), center, zoom, false);
-        fireEvent(this.mapLayer, event);
-    }
-
-    /**
-     * fire the given leaflet event
+     * Fires the given leaflet event
      * 
      * @param layerId
      *            the layer where the event occurred
@@ -494,7 +307,7 @@ public final class LeafletMap extends PolymerTemplate<LeafletModel> implements M
     /**
      * Fired when the map gets initialized on client side
      */
-    @EventHandler
+    @ClientCallable
     private void onMapReadyEventHandler() {
         logger.info("Leaflet map gets initialized on client side.");
         this.ready = true;
@@ -532,7 +345,8 @@ public final class LeafletMap extends PolymerTemplate<LeafletModel> implements M
                     T result;
                     // Detect object type for value to be handled correctly (ex: getZoom)
                     JsonType type = value.getType();
-                    if ( type.equals(JsonType.OBJECT)) {
+                    if (type.equals(JsonType.OBJECT)) {
+                        objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
                         result = objectMapper.readValue(value.toString(), resultType);
                     }
                     else {

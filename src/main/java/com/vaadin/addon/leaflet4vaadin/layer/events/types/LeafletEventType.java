@@ -15,9 +15,9 @@
 package com.vaadin.addon.leaflet4vaadin.layer.events.types;
 
 public interface LeafletEventType {
-	default String getLeafletEvent() {
-		return name();
-	}
+    default String getLeafletEvent() {
+        return name();
+    }
 
-	String name();
+    String name();
 }

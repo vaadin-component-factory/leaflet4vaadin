@@ -33,60 +33,60 @@ import com.vaadin.flow.router.RouteAlias;
 @Route(value = "map/events", layout = LeafletDemoApp.class)
 public class MapEventsExample extends ExampleContainer {
 
-	private TextArea eventLogs;
+    private TextArea eventLogs;
 
-	@Override
-	protected void initDemo() {
-		eventLogs = new TextArea();
-		eventLogs.getStyle().set("font-size", "12px");
-		eventLogs.setSizeFull();
-		eventLogs.setClearButtonVisible(true);
-		addToSidebar(eventLogs);
+    @Override
+    protected void initDemo() {
+        eventLogs = new TextArea();
+        eventLogs.getStyle().set("font-size", "12px");
+        eventLogs.setSizeFull();
+        eventLogs.setClearButtonVisible(true);
+        addToSidebar(eventLogs);
 
-		final MapOptions options = new DefaultMapOptions();
-		options.setCenter(new LatLng(47.070121823, 19.204101562500004));
-		options.setZoom(7);
-		final LeafletMap leafletMap = new LeafletMap(options);
-		leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
+        final MapOptions options = new DefaultMapOptions();
+        options.setCenter(new LatLng(47.070121823, 19.204101562500004));
+        options.setZoom(7);
+        final LeafletMap leafletMap = new LeafletMap(options);
+        leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
-		// Interaction events
-		leafletMap.onClick(this::logEvent);
-		leafletMap.onMouseOut(this::logEvent);
-		leafletMap.onDoubleClick(this::logEvent);
-		leafletMap.onContextMenuOpened(this::logEvent);
-		leafletMap.onMouseDown(this::logEvent);
-		leafletMap.onMouseUp(this::logEvent);
-		leafletMap.onMouseOver(this::logEvent);
+        // Interaction events
+        leafletMap.onClick(this::logEvent);
+        leafletMap.onMouseOut(this::logEvent);
+        leafletMap.onDoubleClick(this::logEvent);
+        leafletMap.onContextMenuOpened(this::logEvent);
+        leafletMap.onMouseDown(this::logEvent);
+        leafletMap.onMouseUp(this::logEvent);
+        leafletMap.onMouseOver(this::logEvent);
 
-		// Map state change events
-		leafletMap.onZoomLevelsChange(this::logEvent);
-		leafletMap.onResize(this::logEvent);
-		leafletMap.onUnload(this::logEvent);
-		leafletMap.onViewReset(this::logEvent);
-		leafletMap.onLoad(this::logEvent);
-		leafletMap.onZoomStart(this::logEvent);
-		leafletMap.onMoveStart(this::logEvent);
-		leafletMap.onZoom(this::logEvent);
-		leafletMap.onZoomEnd(this::logEvent);
-		leafletMap.onMoveEnd(this::logEvent);
+        // Map state change events
+        leafletMap.onZoomLevelsChange(this::logEvent);
+        leafletMap.onResize(this::logEvent);
+        leafletMap.onUnload(this::logEvent);
+        leafletMap.onViewReset(this::logEvent);
+        leafletMap.onLoad(this::logEvent);
+        leafletMap.onZoomStart(this::logEvent);
+        leafletMap.onMoveStart(this::logEvent);
+        leafletMap.onZoom(this::logEvent);
+        leafletMap.onZoomEnd(this::logEvent);
+        leafletMap.onMoveEnd(this::logEvent);
 
-		// keyboard events
-		leafletMap.onKeyDown(this::logEvent);
-		leafletMap.onKeyUp(this::logEvent);
-		leafletMap.onKeyPress(this::logEvent);
+        // keyboard events
+        leafletMap.onKeyDown(this::logEvent);
+        leafletMap.onKeyUp(this::logEvent);
+        leafletMap.onKeyPress(this::logEvent);
 
-		leafletMap.whenReady((event) -> {
-			Notification.show("map gets initialized ", 2000, Position.TOP_CENTER);
-		});
+        leafletMap.whenReady((event) -> {
+            Notification.show("map gets initialized ", 2000, Position.TOP_CENTER);
+        });
 
-		addToContent(leafletMap);
-	}
+        addToContent(leafletMap);
+    }
 
-	private void logEvent(LeafletEvent leafletEvent) {
-		StringBuilder sb = new StringBuilder(eventLogs.getValue());
-		sb.append("\n");
-		sb.append(leafletEvent.getType());
-		eventLogs.setValue(sb.toString());
-	}
+    private void logEvent(LeafletEvent leafletEvent) {
+        StringBuilder sb = new StringBuilder(eventLogs.getValue());
+        sb.append("\n");
+        sb.append(leafletEvent.getType());
+        eventLogs.setValue(sb.toString());
+    }
 
 }

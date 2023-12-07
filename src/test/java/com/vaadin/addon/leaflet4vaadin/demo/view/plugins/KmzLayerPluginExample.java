@@ -18,6 +18,7 @@ import com.vaadin.addon.leaflet4vaadin.LeafletMap;
 import com.vaadin.addon.leaflet4vaadin.controls.LayersControl;
 import com.vaadin.addon.leaflet4vaadin.demo.LeafletDemoApp;
 import com.vaadin.addon.leaflet4vaadin.demo.components.ExampleContainer;
+import com.vaadin.addon.leaflet4vaadin.layer.Layer;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.DefaultMapOptions;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.MapOptions;
 import com.vaadin.addon.leaflet4vaadin.plugins.kmz.KmzLayer;
@@ -44,8 +45,9 @@ public class KmzLayerPluginExample extends ExampleContainer {
         layersControl.addTo(leafletMap);
 
         KmzLayer kmz = new KmzLayer("kmz/capitals.kmz");
-        kmz.onLoad((event)-> {
-            layersControl.addOverlay(event.getTarget(), "Capitals");
+        kmz.onLoad((event) -> {
+          Layer layer = event.getSource().getLayer(event.getLayerId());
+          layersControl.addOverlay(layer, "Capitals");
         });
         kmz.addTo(leafletMap);
 

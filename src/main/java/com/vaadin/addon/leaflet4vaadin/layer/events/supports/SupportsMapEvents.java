@@ -32,6 +32,7 @@ import com.vaadin.addon.leaflet4vaadin.layer.events.LeafletEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.LeafletEventListener;
 import com.vaadin.addon.leaflet4vaadin.layer.events.ResizeEvent;
 import com.vaadin.addon.leaflet4vaadin.layer.events.ZoomAnimEvent;
+import com.vaadin.flow.component.ComponentEventListener;
 
 public interface SupportsMapEvents extends Evented {
 
