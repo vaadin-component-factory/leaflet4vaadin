@@ -17,30 +17,19 @@ package com.vaadin.addon.leaflet4vaadin.layer.events;
 import com.vaadin.addon.leaflet4vaadin.LeafletMap;
 import com.vaadin.addon.leaflet4vaadin.layer.events.types.TileEventType;
 import com.vaadin.addon.leaflet4vaadin.types.Point;
+import com.vaadin.flow.component.DomEvent;
+import com.vaadin.flow.component.EventData;
 
-public abstract class TileEvent extends LeafletEvent {
+@DomEvent("tileunload")
+public class TileUnloadEvent extends TileEvent {
 
-  private static final long serialVersionUID = 3783813732147214444L;
-  private final Point coords;
+  private static final long serialVersionUID = -225086186404225833L;
 
-  public TileEvent(LeafletMap source, boolean fromClient, String layerId, TileEventType eventType,
-      Point coords) {
-    super(source, fromClient, layerId, eventType);
-    this.coords = coords;
-  }
-
-  /**
-   * Point object with the tile's x, y, and z (zoom level) coordinates.
-   * 
-   * @return the coords
-   */
-  public Point getCoords() {
-    return coords;
-  }
-
-  @Override
-  public String toString() {
-    return "TileEvent [type=" + super.getType() + ", coords=" + coords + "]";
+  public TileUnloadEvent(LeafletMap source, boolean fromClient,
+      @EventData("event.detail.target.options.uuid") String layerId,
+      @EventData("event.detail.coords.x") double coordsX,
+      @EventData("event.detail.coords.y") double coordsY) {
+    super(source, fromClient, layerId, TileEventType.tileunload, Point.of(coordsX, coordsY));
   }
 
 }

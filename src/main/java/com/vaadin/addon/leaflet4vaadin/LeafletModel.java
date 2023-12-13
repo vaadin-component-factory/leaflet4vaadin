@@ -19,9 +19,8 @@ import java.util.List;
 
 import com.vaadin.addon.leaflet4vaadin.layer.events.types.LeafletEventType;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.MapOptions;
-import com.vaadin.flow.templatemodel.TemplateModel;
 
-public interface LeafletModel extends TemplateModel {
+public interface LeafletModel {
 
 	MapOptions getMapOptions();
 

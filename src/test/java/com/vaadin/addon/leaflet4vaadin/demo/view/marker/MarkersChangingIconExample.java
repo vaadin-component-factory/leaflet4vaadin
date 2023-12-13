@@ -25,6 +25,7 @@ import com.vaadin.addon.leaflet4vaadin.types.LatLng;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
+@SuppressWarnings("serial")
 @PageTitle("Changing the marker icons")
 @Route(value = "marker/changing-the-icons", layout = LeafletDemoApp.class)
 public class MarkersChangingIconExample extends ExampleContainer {

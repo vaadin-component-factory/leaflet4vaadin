@@ -140,6 +140,7 @@ public abstract class Layer extends LeafletObject implements Evented, LayerPopup
         on(PopupEventType.popupclose, listener);
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends LeafletEvent> void fireEvent(T leafletEvent) {
         Optional<LeafletEventType> event = eventListeners.keySet().stream().filter(type -> type.equals(leafletEvent.getType())).findFirst();
 

@@ -20,6 +20,7 @@ import static java.util.stream.IntStream.range;
 import com.vaadin.addon.leaflet4vaadin.LeafletMap;
 import com.vaadin.addon.leaflet4vaadin.demo.LeafletDemoApp;
 import com.vaadin.addon.leaflet4vaadin.demo.components.ExampleContainer;
+import com.vaadin.addon.leaflet4vaadin.layer.Layer;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.DefaultMapOptions;
 import com.vaadin.addon.leaflet4vaadin.layer.map.options.MapOptions;
 import com.vaadin.addon.leaflet4vaadin.layer.ui.marker.Marker;
@@ -47,7 +48,8 @@ public class MarkersRemoveOnClickExample extends ExampleContainer {
 			Marker marker = new Marker(latlng(lat, lon));
 			marker.bindTooltip("Click me to remove from map");
 			marker.onClick((e) -> {
-				e.getTarget().remove();
+			    Layer layer = e.getSource().getLayer(e.getLayerId());
+				layer.remove();
 				Notification.show("Marker removed successfully", 1000, Position.TOP_CENTER);
 			});
 			marker.addTo(leafletMap);

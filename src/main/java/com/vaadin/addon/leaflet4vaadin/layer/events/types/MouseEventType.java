@@ -57,6 +57,12 @@ public enum MouseEventType implements LeafletEventType {
 	 * mobile when the user holds a single touch for a second (also called long
 	 * press).
 	 */
-	contextmenu;
+	contextmenu,
+  
+    /**
+     * Fired before mouse click on the map (sometimes useful when you want something to happen on
+     * click before any existing click handlers start running).
+     */
+    preclick;
 
 }
