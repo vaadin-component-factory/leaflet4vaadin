@@ -126,7 +126,7 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 				.addSubMenu(MapFunctionsExample.class).addSubMenu(MapConversionMethodsExample.class)
 				.addSubMenu(MapDialogExample.class)
 				.addSubMenu(MultipleMapsExample.class)
-                .addSubMenu(MapStateFuncionsExmple.class)
+        .addSubMenu(MapStateFuncionsExmple.class)
 				.addTo(appMenu);
 
 		// Marker examples
@@ -153,7 +153,7 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 
 		// Controls examples
 		AppMenuItem.create("Controls", new Icon(VaadinIcon.ARROWS)).addSubMenu(RemoveDefaultControlsExample.class)
-		        .addSubMenu(LayersControlExample.class)
+        .addSubMenu(LayersControlExample.class)
 				.addSubMenu(ControlPositionExample.class).addSubMenu(ScaleControlExample.class).addTo(appMenu);
 
 		// Mixins examples
@@ -161,13 +161,13 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 
 		// Plugins examples
 		AppMenuItem.create("Plugins", new Icon(VaadinIcon.PLUG)).addSubMenu(FullScreenPluginExample.class)
-		        .addSubMenu(HeatmapPluginExample.class)
-		        .addSubMenu(MarkerClusterPluginExample.class)
-		        .addSubMenu(CanvasIconLayerExample.class, NEW)
-                .addSubMenu(KmzLayerPluginExample.class, NEW)
-                .addSubMenu(DynamicMapLayerPluginExample.class, NEW)
-                .addSubMenu(TiledMapLayerPluginExample.class)
-				.addTo(appMenu);
+        .addSubMenu(HeatmapPluginExample.class)
+        .addSubMenu(MarkerClusterPluginExample.class)
+        .addSubMenu(CanvasIconLayerExample.class, NEW)
+        .addSubMenu(KmzLayerPluginExample.class, NEW)
+        .addSubMenu(DynamicMapLayerPluginExample.class, NEW)
+        .addSubMenu(TiledMapLayerPluginExample.class)
+        .addTo(appMenu);
 
 		addToDrawer(appMenu);
 	}
