@@ -26,6 +26,9 @@ import com.vaadin.addon.leaflet4vaadin.demo.view.marker.*;
 import com.vaadin.addon.leaflet4vaadin.demo.view.mixed.WorldMapFlagsExample;
 import com.vaadin.addon.leaflet4vaadin.demo.view.path.*;
 import com.vaadin.addon.leaflet4vaadin.demo.view.plugins.*;
+import com.vaadin.addon.leaflet4vaadin.demo.view.plugins.esri.DynamicMapLayerPluginExample;
+import com.vaadin.addon.leaflet4vaadin.demo.view.plugins.esri.TiledMapLayerPluginExample;
+import com.vaadin.addon.leaflet4vaadin.plugins.esri.TiledMapLayer;
 import com.vaadin.flow.component.HtmlContainer;
 import com.vaadin.flow.component.UI;
 import com.vaadin.flow.component.applayout.AppLayout;
@@ -162,6 +165,7 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 		        .addSubMenu(MarkerClusterPluginExample.class)
 		        .addSubMenu(CanvasIconLayerExample.class, NEW)
                 .addSubMenu(KmzLayerPluginExample.class, NEW)
+                .addSubMenu(DynamicMapLayerPluginExample.class, NEW)
                 .addSubMenu(TiledMapLayerPluginExample.class)
 				.addTo(appMenu);
 
