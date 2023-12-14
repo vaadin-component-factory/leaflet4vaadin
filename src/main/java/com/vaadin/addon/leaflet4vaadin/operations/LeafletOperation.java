@@ -14,12 +14,12 @@
 
 package com.vaadin.addon.leaflet4vaadin.operations;
 
-import java.io.Serializable;
-
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.vaadin.addon.leaflet4vaadin.controls.LeafletControl;
 import com.vaadin.addon.leaflet4vaadin.layer.Identifiable;
+import java.io.Serializable;
 
 /**
  * {@link LeafletOperation} class contains all pieces of information is required
@@ -44,6 +44,8 @@ public class LeafletOperation implements Serializable {
         this.functionName = functionName;
         this.arguments = arguments;
         this.controlOperation = target instanceof LeafletControl;
+
+        mapper.setSerializationInclusion(Include.NON_NULL);
     }
 
     /**
