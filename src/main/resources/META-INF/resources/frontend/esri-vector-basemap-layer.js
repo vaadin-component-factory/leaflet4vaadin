@@ -1,7 +1,5 @@
 import * as vector from 'esri-leaflet-vector';
 
-L.vectorBasemapLayer = function (options) {
-   return vector.vectorBasemapLayer(options.url, {
-        apikey: options.apiKey,
-      });
+L.vectorBasemapLayer = function (key, options) {
+   return vector.vectorBasemapLayer(key, options);
 };

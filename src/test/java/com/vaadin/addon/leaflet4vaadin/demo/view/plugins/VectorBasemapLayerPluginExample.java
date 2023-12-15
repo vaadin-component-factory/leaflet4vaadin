@@ -47,14 +47,14 @@ public class VectorBasemapLayerPluginExample extends ExampleContainer {
     LeafletMap leafletMap = new LeafletMap(options);
 
     VectorBasemapLayer streetsLayer =
-        new VectorBasemapLayer(new VectorBasemapLayerOptions(esriApiKey, "arcgis/streets"));
+        new VectorBasemapLayer("arcgis/streets", new VectorBasemapLayerOptions(esriApiKey));
     streetsLayer.addTo(leafletMap);
 
     VectorBasemapLayer imageryLayer =
-        new VectorBasemapLayer(new VectorBasemapLayerOptions(esriApiKey, "arcgis/imagery"));
+        new VectorBasemapLayer("arcgis/imagery", new VectorBasemapLayerOptions(esriApiKey));
 
     VectorBasemapLayer topographicLayer =
-        new VectorBasemapLayer(new VectorBasemapLayerOptions(esriApiKey, "arcgis/topographic"));
+        new VectorBasemapLayer("arcgis/topographic", new VectorBasemapLayerOptions(esriApiKey));
 
     Anchor pluginRepository = new Anchor();
     pluginRepository.setHref("https://developers.arcgis.com/esri-leaflet");
