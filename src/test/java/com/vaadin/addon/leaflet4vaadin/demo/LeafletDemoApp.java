@@ -164,6 +164,7 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
         .addSubMenu(KmzLayerPluginExample.class, NEW)
         .addSubMenu(DynamicMapLayerPluginExample.class, NEW)
         .addSubMenu(TiledMapLayerPluginExample.class)
+        .addSubMenu(VectorBasemapLayerPluginExample.class, NEW)
         .addTo(appMenu);
 
 		addToDrawer(appMenu);
