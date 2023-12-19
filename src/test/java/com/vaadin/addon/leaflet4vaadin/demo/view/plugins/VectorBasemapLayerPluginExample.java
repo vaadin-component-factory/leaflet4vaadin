@@ -47,15 +47,18 @@ public class VectorBasemapLayerPluginExample extends ExampleContainer {
     LeafletMap leafletMap = new LeafletMap(options);
 
     VectorBasemapLayer streetsLayer =
-        new VectorBasemapLayer("arcgis/streets", new VectorBasemapLayerOptions(esriApiKey));
+        new VectorBasemapLayer("ArcGIS:Streets", new VectorBasemapLayerOptions(esriApiKey));
     streetsLayer.addTo(leafletMap);
-
+    
+    VectorBasemapLayer navigationLayer =
+        new VectorBasemapLayer("ArcGIS:Navigation", new VectorBasemapLayerOptions(esriApiKey));
+    
     VectorBasemapLayer imageryLayer =
-        new VectorBasemapLayer("arcgis/imagery", new VectorBasemapLayerOptions(esriApiKey));
+        new VectorBasemapLayer("ArcGIS:Imagery", new VectorBasemapLayerOptions(esriApiKey));
 
     VectorBasemapLayer topographicLayer =
-        new VectorBasemapLayer("arcgis/topographic", new VectorBasemapLayerOptions(esriApiKey));
-
+        new VectorBasemapLayer("ArcGIS:Topographic", new VectorBasemapLayerOptions(esriApiKey));
+ 
     Anchor pluginRepository = new Anchor();
     pluginRepository.setHref("https://developers.arcgis.com/esri-leaflet");
     pluginRepository.setText("Esri Leaflet plugin");
@@ -67,9 +70,10 @@ public class VectorBasemapLayerPluginExample extends ExampleContainer {
     layersControl.addTo(leafletMap);
 
     layersControl.addBaseLayer(streetsLayer, "ArcGIS Streets");
+    layersControl.addBaseLayer(navigationLayer, "ArcGIS Navigation");
     layersControl.addBaseLayer(topographicLayer, "ArcGIS Topographic");
     layersControl.addBaseLayer(imageryLayer, "ArcGIS Imagery");
-
+    
     addToContent(pluginRepository, leafletMap);
   }
 
