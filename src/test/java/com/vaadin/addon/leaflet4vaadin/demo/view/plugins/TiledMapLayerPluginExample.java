@@ -28,8 +28,7 @@ public class TiledMapLayerPluginExample extends ExampleContainer {
     LeafletMap leafletMap = new LeafletMap(options);
     leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
-    TiledMapLayerOptions layerOptions = new TiledMapLayerOptions();
-    layerOptions.setUrl(
+    TiledMapLayerOptions layerOptions = new TiledMapLayerOptions(
         "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer");
 
     tiledMapLayer = new TiledMapLayer(layerOptions);
@@ -37,7 +36,7 @@ public class TiledMapLayerPluginExample extends ExampleContainer {
 
     Anchor pluginRepository = new Anchor();
     pluginRepository.setHref("https://github.com/Esri/esri-leaflet");
-    pluginRepository.setText("Esri plugins: https://github.com/Esri/esri-leaflet");
+    pluginRepository.setText("Esri plugins");
     pluginRepository.setTarget("_blank");
 
     addToContent(pluginRepository, leafletMap);
