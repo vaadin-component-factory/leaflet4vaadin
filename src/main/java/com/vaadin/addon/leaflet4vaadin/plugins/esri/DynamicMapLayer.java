@@ -11,13 +11,7 @@ import lombok.Getter;
 @JsModule("./esri-dynamic-map.js")
 public class DynamicMapLayer extends EsriLeafletLayer {
 
-  public static enum DynamicMapLayerEventType implements LeafletEventType {
-    load;
-  }
-
-  static {
-    EventTypeRegistry.register(DynamicMapLayerEventType.class);
-  }
+  private static final long serialVersionUID = 1L;
 
   @Getter
   @LeafletArgument
@@ -25,17 +19,6 @@ public class DynamicMapLayer extends EsriLeafletLayer {
 
   public DynamicMapLayer(DynamicMapLayerOptions options) {
     this.options = options;
-  }
-
-  /**
-   * Redraws the heatmap.
-   */
-  public void redraw() {
-    executeJs("redraw");
-  }
-
-  public void onLoad(LeafletEventListener<LeafletEvent> listener) {
-    on(DynamicMapLayerEventType.load, listener);
   }
 
 }
