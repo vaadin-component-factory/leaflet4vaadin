@@ -160,11 +160,11 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 		AppMenuItem.create("Plugins", new Icon(VaadinIcon.PLUG)).addSubMenu(FullScreenPluginExample.class)
         .addSubMenu(HeatmapPluginExample.class)
         .addSubMenu(MarkerClusterPluginExample.class)
-        .addSubMenu(CanvasIconLayerExample.class, NEW)
-        .addSubMenu(KmzLayerPluginExample.class, NEW)
-        .addSubMenu(DynamicMapLayerPluginExample.class, NEW)
+        .addSubMenu(CanvasIconLayerExample.class)
+        .addSubMenu(KmzLayerPluginExample.class)
+        .addSubMenu(DynamicMapLayerPluginExample.class)
         .addSubMenu(TiledMapLayerPluginExample.class)
-        .addSubMenu(VectorBasemapLayerPluginExample.class, NEW)
+        .addSubMenu(VectorBasemapLayerPluginExample.class)
         .addTo(appMenu);
 
 		addToDrawer(appMenu);
