@@ -2,17 +2,17 @@ package com.vaadin.addon.leaflet4vaadin.plugins.esri;
 
 import java.io.Serializable;
 import lombok.Getter;
-import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @RequiredArgsConstructor
 public class VectorBasemapLayerOptions implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
-  @NonNull
-  private String apiKey;
+  private final String apiKey;
   private String token;
   private String version;
   private String language;
