@@ -22,14 +22,7 @@ import com.vaadin.addon.leaflet4vaadin.layer.map.options.MapOptions;
 import com.vaadin.addon.leaflet4vaadin.plugins.esri.DynamicMapLayer;
 import com.vaadin.addon.leaflet4vaadin.plugins.esri.DynamicMapLayerOptions;
 import com.vaadin.addon.leaflet4vaadin.types.LatLng;
-import com.vaadin.flow.component.button.Button;
-import com.vaadin.flow.component.button.ButtonVariant;
-import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Anchor;
-import com.vaadin.flow.component.textfield.IntegerField;
-import com.vaadin.flow.component.textfield.NumberField;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 
@@ -38,12 +31,6 @@ import com.vaadin.flow.router.Route;
 public class DynamicMapLayerPluginExample extends ExampleContainer {
 
   private static final long serialVersionUID = 7554022663956386641L;
-
-  private static final String ESRI_URL =
-      "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer";
-
-  private Binder<DynamicMapLayerOptions> binder;
-  private DynamicMapLayer dynamicMapLayer;
 
   @Override
   protected void initDemo() {
@@ -54,10 +41,17 @@ public class DynamicMapLayerPluginExample extends ExampleContainer {
     LeafletMap leafletMap = new LeafletMap(options);
     leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 
-    DynamicMapLayerOptions dynamicMapLayerOptions = new DynamicMapLayerOptions(ESRI_URL);
-    dynamicMapLayerOptions.setOpacity(0.6);
-    dynamicMapLayer = new DynamicMapLayer(dynamicMapLayerOptions);
-    dynamicMapLayer.addTo(leafletMap);
+    DynamicMapLayerOptions hurricanesLayerOptions = new DynamicMapLayerOptions(
+        "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Hurricanes/MapServer/");
+    hurricanesLayerOptions.setOpacity(0.6);
+    DynamicMapLayer hurricanesLayer = new DynamicMapLayer(hurricanesLayerOptions);
+    hurricanesLayer.addTo(leafletMap);
+
+    DynamicMapLayerOptions censusLayerOptions = new DynamicMapLayerOptions(
+        "https://sampleserver6.arcgisonline.com/arcgis/rest/services/Census/MapServer");
+    censusLayerOptions.setOpacity(0.5);
+    DynamicMapLayer censusLayer = new DynamicMapLayer(censusLayerOptions);
+    censusLayer.addTo(leafletMap);
 
     Anchor pluginRepository = new Anchor();
     pluginRepository.setHref("https://developers.arcgis.com/esri-leaflet");
@@ -65,60 +59,7 @@ public class DynamicMapLayerPluginExample extends ExampleContainer {
     pluginRepository.setTarget("_blank");
 
     addToContent(pluginRepository, leafletMap);
-
-    binder = new Binder<>(DynamicMapLayerOptions.class);
-    createFormControls();
-    binder.setBean(new DynamicMapLayerOptions(ESRI_URL));
-
-    // binder.addValueChangeListener((event) -> dynamicMapLayer.setOptions(binder.getBean()));
-    // binder.addStatusChangeListener((event) -> dynamicMapLayer.setOptions(binder.getBean()));
   }
 
-  private void createFormControls() {
-    // Stroke control
-    FormLayout form = new FormLayout();
-
-    // the minimum opacity the heat will start at
-    NumberField opacity = new NumberField();
-    opacity.setHasControls(true);
-    opacity.setMin(0);
-    opacity.setMax(1);
-    opacity.setStep(0.1);
-    opacity.setWidthFull();
-    opacity.setValueChangeMode(ValueChangeMode.EAGER);
-    form.addFormItem(opacity, "Opacity");
-    binder.forField(opacity).bind("opacity");
-
-    // maximum point intensity,
-    IntegerField minZoom = new IntegerField();
-    minZoom.setHasControls(true);
-    minZoom.setMin(0);
-    minZoom.setMax(99);
-    minZoom.setWidthFull();
-    minZoom.setValueChangeMode(ValueChangeMode.EAGER);
-    form.addFormItem(minZoom, "Minimum zoom");
-    binder.forField(minZoom).bind("minZoom");
-
-    // zoom level where the points reach maximum intensity
-    IntegerField maxZoom = new IntegerField();
-    maxZoom.setHasControls(true);
-    minZoom.setMin(0);
-    minZoom.setMax(99);
-    maxZoom.setWidthFull();
-    maxZoom.setValueChangeMode(ValueChangeMode.EAGER);
-    form.addFormItem(maxZoom, "Maximum zoom");
-    binder.forField(maxZoom).bind("maxZoom");
-
-    Button reset = new Button("Reset to defaults");
-    reset.addThemeVariants(ButtonVariant.LUMO_PRIMARY);
-    reset.addClickListener(event -> binder.setBean(new DynamicMapLayerOptions(ESRI_URL)));
-    form.add(reset);
-
-    Button clear = new Button("Clear the map");
-    clear.addThemeVariants(ButtonVariant.LUMO_ERROR);
-    form.add(clear);
-
-    addToSidebar(form);
-  }
 
 }
