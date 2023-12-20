@@ -3,14 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>org.vaadin.addons.componentfactory</groupId>
-	<artifactId>leaflet4vaadin</artifactId>
-	<version>0.5.1-SNAPSHOT</version>
-	<name>Leaflet4Vaadin</name>
-	<description>Integration of Leaflet map for Vaadin platform LTS 14</description>
+	<artifactId>vcf-leaflet</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<name>Leaflet</name>
+	<description>Integration of Leaflet Map for Vaadin Flow</description>
 	<scm>
-		<url>https://github.com/vaadin-component-factory/leaflet4vaadin</url>
-		<connection>scm:git:git://https://github.com/vaadin-component-factory/leaflet4vaadin.git</connection>
-		<developerConnection>scm:git:git@https://github.com/vaadin-component-factory/leaflet4vaadin.git</developerConnection>
+		<url>https://github.com/vaadin-component-factory/vcf-leaflet</url>
+		<connection>scm:git:git://https://github.com/vaadin-component-factory/vcf-leaflet.git</connection>
+		<developerConnection>scm:git:git@https://github.com/vaadin-component-factory/vcf-leaflet.git</developerConnection>
 	</scm>
 	<properties>
 		<vaadin.version>14.10.11</vaadin.version>
@@ -29,7 +29,8 @@
 		<heroku-maven-plugin>3.0.1</heroku-maven-plugin>
 	</properties>
 	<organization>
-		<name>Vaadin Visitor</name>
+		<name>Vaadin Ltd</name>
+        <url>https://vaadin.com/</url>
 	</organization>
 	<licenses>
 		<license>
