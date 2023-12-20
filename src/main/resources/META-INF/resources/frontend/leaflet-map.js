@@ -123,9 +123,13 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
     let leafletFn = target[operation.functionName];
     //console.log("LeafletMap - callLeafletFunction() - leafletFn", leafletFn);
 
-    let result = leafletFn.apply(target, leafletArgs);
-    console.log("LeafletMap - callLeafletFunction() - result", result);
-    return result;
+    if(leafletFn){
+      let result = leafletFn.apply(target, leafletArgs);
+      console.log("LeafletMap - callLeafletFunction() - result", result);
+      return result;
+    } 
+    
+    return;
   }
 
   _findTargetLayer(operation) {

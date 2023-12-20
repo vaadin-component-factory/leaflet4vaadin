@@ -39,7 +39,7 @@ public abstract class ExampleContainer extends VerticalLayout {
 	private Tabs tabs = new Tabs();
 	private Map<Tab, Component> tabsToPages = new HashMap<>();
 	private Set<Component> pagesShown;
-	private final String gitHubDir = "https://raw.githubusercontent.com/Gubancs/leaflet4vaadin/master/src/test/java/";
+	private final String gitHubDir = "https://raw.githubusercontent.com/vaadin-component-factory/vcf-leaflet/master/src/test/java/";
 	private VerticalLayout contentLayout;
 	private VerticalLayout sidebarLayout;
 

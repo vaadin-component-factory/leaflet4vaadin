@@ -16,8 +16,6 @@ package com.vaadin.addon.leaflet4vaadin.controls;
 
 import com.vaadin.addon.leaflet4vaadin.LeafletMap;
 import com.vaadin.addon.leaflet4vaadin.LeafletObject;
-import com.vaadin.flow.templatemodel.Encode;
-import com.vaadin.flow.templatemodel.ModelEncoder;
 
 public abstract class LeafletControl extends LeafletObject {
 
@@ -49,10 +47,9 @@ public abstract class LeafletControl extends LeafletObject {
      * Sets the position of the control.
      * @param position the position of the control
      */
-    @Encode(value = ControlPositionModelEncoder.class)
     public void setPosition(ControlPosition position) {
         this.position = position;
-        executeJs(this, "setPosition", position);
+        executeJs(this, "setPosition", position.name());
     }
 
     /**
@@ -72,25 +69,6 @@ public abstract class LeafletControl extends LeafletObject {
      */
     public void remove() {
         executeJs(this, "remove");
-    }
-
-    public static class ControlPositionModelEncoder implements ModelEncoder<ControlPosition, String> {
-
-        /**
-         *
-         */
-        private static final long serialVersionUID = -2149055629014677547L;
-
-        @Override
-        public String encode(ControlPosition value) {
-            return value.name();
-        }
-
-        @Override
-        public ControlPosition decode(String value) {
-            return ControlPosition.valueOf(value);
-        }
-
     }
 
 }
