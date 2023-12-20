@@ -57,7 +57,7 @@ leafletMap.setBaseUrl("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png");
 add(leafletMap);
 ```
 
-See more examples on [vcf-leaflet-demo](https://github.com/vaadin-component-factory/vcf-leaflet/tree/master/src/test/java/com/vaadin/addon/leaflet4vaadin/demo/view).
+See more examples on [vcf-leaflet-demo](https://github.com/vaadin-component-factory/vcf-leaflet/tree/master/src/test/java/org/vaadin/addons/componentfactory/leaflet/demo/view).
 
 ## Development instructions
 
