@@ -30,6 +30,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.vaadin.addons.componentfactory.leaflet.controls.LeafletControl;
 import org.vaadin.addons.componentfactory.leaflet.layer.Identifiable;
 import org.vaadin.addons.componentfactory.leaflet.layer.Layer;
+import org.vaadin.addons.componentfactory.leaflet.layer.events.AddEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.BaseLayerChangeEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.DragEndEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.DragEvent;
@@ -58,6 +59,7 @@ import org.vaadin.addons.componentfactory.leaflet.layer.events.OverlayAddEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.OverlayRemoveEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.PopupCloseEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.PopupOpenEvent;
+import org.vaadin.addons.componentfactory.leaflet.layer.events.RemoveEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.ResizeEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.TileErrorEvent;
 import org.vaadin.addons.componentfactory.leaflet.layer.events.TileLoadEvent;
@@ -144,18 +146,18 @@ public final class LeafletMap extends Component implements MapModifyStateFunctio
     
     private List<LeafletEventType> events = new ArrayList<>(); 
     
-    private List<Class<? extends LeafletEvent>> eventsClasses =
-        Arrays.asList(BaseLayerChangeEvent.class, DragEndEvent.class, DragEvent.class,
-            ErrorEvent.class, KeyDownEvent.class, KeyPressEvent.class, KeyUpEvent.class,
-            LayerAddEvent.class, LayerRemoveEvent.class, LoadEvent.class, LocationEvent.class,
-            MouseClickEvent.class, MouseContextMenuEvent.class, MouseDoubleClickEvent.class,
-            MouseDownEvent.class, MouseMoveEvent.class, MouseOutEvent.class, MouseOverEvent.class,
-            MousePreClickEvent.class, MouseUpEvent.class, MoveEndEvent.class, MoveStartEvent.class,
-            OverlayAddEvent.class, OverlayRemoveEvent.class, PopupCloseEvent.class,
-            PopupOpenEvent.class, ResizeEvent.class, TileErrorEvent.class, TileLoadEvent.class,
-            TileUnloadEvent.class, TileLoadStartEvent.class, TooltipCloseEvent.class,
-            TooltipOpenEvent.class, UnloadEvent.class, ViewResetEvent.class, ZoomAnimEvent.class,
-            ZoomEndEvent.class, ZoomEvent.class, ZoomLevelsChangeEvent.class, ZoomStartEvent.class);
+    private List<Class<? extends LeafletEvent>> eventsClasses = Arrays.asList(AddEvent.class,
+        BaseLayerChangeEvent.class, DragEndEvent.class, DragEvent.class, ErrorEvent.class,
+        KeyDownEvent.class, KeyPressEvent.class, KeyUpEvent.class, LayerAddEvent.class,
+        LayerRemoveEvent.class, LoadEvent.class, LocationEvent.class, MouseClickEvent.class,
+        MouseContextMenuEvent.class, MouseDoubleClickEvent.class, MouseDownEvent.class,
+        MouseMoveEvent.class, MouseOutEvent.class, MouseOverEvent.class, MousePreClickEvent.class,
+        MouseUpEvent.class, MoveEndEvent.class, MoveStartEvent.class, OverlayAddEvent.class,
+        OverlayRemoveEvent.class, PopupCloseEvent.class, PopupOpenEvent.class, RemoveEvent.class,
+        ResizeEvent.class, TileErrorEvent.class, TileLoadEvent.class, TileUnloadEvent.class,
+        TileLoadStartEvent.class, TooltipCloseEvent.class, TooltipOpenEvent.class,
+        UnloadEvent.class, ViewResetEvent.class, ZoomAnimEvent.class, ZoomEndEvent.class,
+        ZoomEvent.class, ZoomLevelsChangeEvent.class, ZoomStartEvent.class);
 
     public LeafletMap() {
         this(new DefaultMapOptions());
