@@ -26,6 +26,17 @@
 import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import { ThemableMixin } from "@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js";
 import * as L from "leaflet/dist/leaflet-src.js";
+
+import 'leaflet.markercluster/dist/leaflet.markercluster-src.js';
+import 'esri-leaflet/dist/esri-leaflet.js';
+import './esri-dynamic-map.js';
+import './esri-tiled-map-layer.js';
+import 'esri-leaflet-vector/dist/esri-leaflet-vector.js';
+import './esri-vector-basemap-layer.js';
+import 'leaflet.fullscreen/Control.FullScreen.js';
+import 'leaflet.heat/dist/leaflet-heat.js';
+import 'leaflet-kmz/dist/leaflet-kmz-src.js';
+
 import { LeafletTypeConverter } from "./leaflet-type-converter.js";
 
 class LeafletMap extends ThemableMixin(PolymerElement) {

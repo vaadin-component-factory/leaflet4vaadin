@@ -182,6 +182,10 @@
 				<version>${jetty.version}</version>
 				<configuration>
 					<scan>2</scan>
+					<httpConnector>
+					<!--host>localhost</host-->
+					<port>9080</port>
+				</httpConnector>
 					<systemProperties>
 						<vaadin.frontend.hotdeploy>true</vaadin.frontend.hotdeploy>
 					</systemProperties>
@@ -313,7 +317,7 @@
 						<artifactId>jetty-maven-plugin</artifactId>
 						<version>${jetty.version}</version>
 						<configuration>
-							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<scan>0</scan>
 							<supportedPackagings>
 								<supportedPackaging>jar</supportedPackaging>
 							</supportedPackagings>

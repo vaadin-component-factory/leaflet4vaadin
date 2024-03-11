@@ -28,8 +28,6 @@ import org.vaadin.addons.componentfactory.leaflet.annotations.LeafletArgument;
 @RequiredArgsConstructor
 @Getter
 @NpmPackage(value = "esri-leaflet-vector", version = "4.2.3")
-@JsModule("esri-leaflet-vector/dist/esri-leaflet-vector.js")
-@JsModule("./esri-vector-basemap-layer.js")
 public class VectorBasemapLayer extends EsriLeafletLayer {
 
   private static final long serialVersionUID = 1L;

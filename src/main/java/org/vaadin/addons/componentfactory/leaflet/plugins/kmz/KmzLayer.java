@@ -22,7 +22,6 @@ import org.vaadin.addons.componentfactory.leaflet.layer.events.types.LeafletEven
  * @version 1.0
  */
 @NpmPackage(value = "leaflet-kmz", version = "1.0.9")
-@JsModule("leaflet-kmz/dist/leaflet-kmz-src.js")
 public class KmzLayer extends Layer {
 
     private static final long serialVersionUID = 6515861726518730409L;

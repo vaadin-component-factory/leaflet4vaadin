@@ -42,9 +42,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  * @since 2020-07-16
  * @version 1.0
  */
-//@NpmPackage(value = "leaflet-markers-canvas-exact", version = "1.2.1")
-// @JsModule("leaflet-canvas-marker/src/_full.js")
-//@JsModule("leaflet-markers-canvas-exact/dist/leaflet-markers-canvas.js")
+@NpmPackage(value = "leaflet-markers-canvas-exact", version = "1.2.1")
 public class CanvasIconLayer extends Layer {
 
     private List<Marker> markers = new ArrayList<>();

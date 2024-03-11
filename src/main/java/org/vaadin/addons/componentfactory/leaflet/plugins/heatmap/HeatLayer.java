@@ -59,7 +59,6 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  * @see HeatLayerOptions
  */
 @NpmPackage(value = "leaflet.heat", version = "0.2.0")
-@JsModule("leaflet.heat/dist/leaflet-heat.js")
 public class HeatLayer extends Layer {
 
     private static final long serialVersionUID = 8264047409630317556L;
