@@ -11,7 +11,7 @@ import com.vaadin.flow.component.dependency.JsModule;
 import com.vaadin.flow.component.dependency.NpmPackage;
 
 /**
- * <h3>Leaflet.Canvas-Markers</h3> Leaflet plugin for displaying markers on
+ * <h2>Leaflet.Canvas-Markers</h2> Leaflet plugin for displaying markers on
  * canvas instead of DOM. Working with Leaflet 1.0.0 and above. Feel free to
  * contribute. Github: <a href=
  * "https://github.com/eJuke/Leaflet.Canvas-Markers">https://github.com/eJuke/Leaflet.Canvas-Markers</a>
