@@ -29,6 +29,7 @@ import com.vaadin.flow.component.dependency.NpmPackage;
  * @version 1.0
  */
 @NpmPackage(value = "leaflet.markercluster", version = "1.5.3")
+@JsModule("leaflet.markercluster/dist/leaflet.markercluster-src.js")
 @CssImport(value = "leaflet.markercluster/dist/MarkerCluster.css", themeFor = "leaflet-map")
 @CssImport(value = "leaflet.markercluster/dist/MarkerCluster.Default.css", themeFor = "leaflet-map")
 public class MarkerClusterGroup extends FeatureGroup {

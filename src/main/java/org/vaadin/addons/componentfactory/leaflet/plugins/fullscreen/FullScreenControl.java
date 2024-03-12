@@ -70,6 +70,7 @@ import org.vaadin.addons.componentfactory.leaflet.layer.events.types.LeafletEven
  * @see LeafletControl
  */
 @NpmPackage(value = "leaflet.fullscreen", version = "3.0.0")
+@JsModule("leaflet.fullscreen/Control.FullScreen.js")
 @CssImport(value = "leaflet.fullscreen/Control.FullScreen.css", themeFor = "leaflet-map")
 public class FullScreenControl extends LeafletControl {
 

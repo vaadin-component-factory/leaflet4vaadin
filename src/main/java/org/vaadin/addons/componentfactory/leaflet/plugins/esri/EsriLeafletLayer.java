@@ -25,6 +25,7 @@ import org.vaadin.addons.componentfactory.leaflet.layer.Layer;
 
 @NpmPackage(value = "esri-leaflet", version = "3.0.12")
 @NpmPackage(value = "maplibre-gl", version = "3.6.2")
+@JsModule("esri-leaflet/dist/esri-leaflet.js")
 public abstract class EsriLeafletLayer extends Layer {
 
 }

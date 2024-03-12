@@ -27,16 +27,6 @@ import { html, PolymerElement } from "@polymer/polymer/polymer-element.js";
 import { ThemableMixin } from "@vaadin/vaadin-themable-mixin/vaadin-themable-mixin.js";
 import * as L from "leaflet/dist/leaflet-src.js";
 
-import 'leaflet.markercluster/dist/leaflet.markercluster-src.js';
-import 'esri-leaflet/dist/esri-leaflet.js';
-import './esri-dynamic-map.js';
-import './esri-tiled-map-layer.js';
-import 'esri-leaflet-vector/dist/esri-leaflet-vector.js';
-import './esri-vector-basemap-layer.js';
-import 'leaflet.fullscreen/Control.FullScreen.js';
-import 'leaflet.heat/dist/leaflet-heat.js';
-import 'leaflet-kmz/dist/leaflet-kmz-src.js';
-
 import { LeafletTypeConverter } from "./leaflet-type-converter.js";
 
 class LeafletMap extends ThemableMixin(PolymerElement) {
@@ -61,7 +51,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
    */
   connectedCallback() {
     super.connectedCallback();
-    console.log("LeafletMap - connectedCallback()");
+    // console.log("LeafletMap - connectedCallback()");
   }
 
   /**
@@ -71,7 +61,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
    */
   disconnectedCallback() {
     super.disconnectedCallback();
-    console.log("LeafletMap - disconnectedCallback()");
+    // console.log("LeafletMap - disconnectedCallback()");
   }
 
   /**
@@ -82,10 +72,10 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
   ready() {
     super.ready();
     console.info("LeafletMap - ready() leaflet map is ready.");
-    console.log("LeafletMap - ready() mapOptions: {}", this.mapOptions);
+    // console.log("LeafletMap - ready() mapOptions: {}", this.mapOptions);
 
-    this.leafletConverter = new LeafletTypeConverter();
-    console.log("LeafletMap - ready() using converter", this.leafletConverter);
+    this.leafletConverter = new LeafletTypeConverter(L);
+    // console.log("LeafletMap - ready() using converter", this.leafletConverter);
 
     // init leaflet map
     let map = this.toLeafletMap(JSON.parse(this.mapOptions));
@@ -96,7 +86,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
    * Called each time after the component is updated from the server side.
    */
   afterServerUpdate() {
-    console.log("LeafletMap - afterServerUpdate() !!!!!!");
+    // console.log("LeafletMap - afterServerUpdate() !!!!!!");
     console.log(
       "LeafletMap - afterServerUpdate() mapOptions: {}",
       this.mapOptions
@@ -115,7 +105,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
   }
 
   callLeafletFunction(operation) {
-    console.info("LeafletMap - callLeafletFunction()", operation);
+    // console.info("LeafletMap - callLeafletFunction()", operation);
 
     let target = this._findTargetLayer(operation);
 
@@ -123,14 +113,14 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
     leafletArgs = leafletArgs.map((arg) =>
       this.leafletConverter.convert(arg, this)
     );
-    console.log("LeafletMap - callLeafletFunction() - leafletArgs", leafletArgs);
+    // console.log("LeafletMap - callLeafletFunction() - leafletArgs", leafletArgs);
 
     let leafletFn = target[operation.functionName];
-    console.log("LeafletMap - callLeafletFunction() - leafletFn", leafletFn);
+    // console.log("LeafletMap - callLeafletFunction() - leafletFn", leafletFn);
 
     if(leafletFn){
       let result = leafletFn.apply(target, leafletArgs);
-      console.log("LeafletMap - callLeafletFunction() - result", result);
+      // console.log("LeafletMap - callLeafletFunction() - result", result);
       return result;
     } 
     
@@ -188,9 +178,9 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
   }
 
   toLeafletMap(options) {
-    console.log("LeafletMap - initialize map with options: {}", options);
+    // console.log("LeafletMap - initialize map with options: {}", options);
     let mapElement = this.shadowRoot.getElementById("map");
-    console.log("LeafletMap - using DOM element: {}", mapElement);
+    // console.log("LeafletMap - using DOM element: {}", mapElement);
     let leafletMap = L.map(mapElement, options);
     leafletMap._controls = [];
     this.events
@@ -198,7 +188,7 @@ class LeafletMap extends ThemableMixin(PolymerElement) {
       .forEach((event) =>
         this.registerEventListener(leafletMap, event.leafletEvent)
       );
-    console.log("LeafletMap - map has been created with options", options);
+    // console.log("LeafletMap - map has been created with options", options);
     return leafletMap;
   }
 
