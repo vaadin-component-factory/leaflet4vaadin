@@ -144,7 +144,6 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 				.addSubMenu(RemoveDefaultControlsExample.class)
 				.addSubMenu(LayersControlExample.class)
 				.addSubMenu(ControlPositionExample.class)
-				.addSubMenu(PrintControlExample.class)
 				.addSubMenu(ScaleControlExample.class).addTo(appMenu);
 
 		// Mixins examples
