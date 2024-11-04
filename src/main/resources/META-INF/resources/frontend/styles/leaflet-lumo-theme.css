@@ -84,3 +84,6 @@
 .leaflet-popup-pane {
   z-index: 6;
 }
+.leaflet-top, .leaflet-bottom {
+  z-index: 7;
+}
