@@ -4,7 +4,7 @@
 
 	<groupId>org.vaadin.addons.componentfactory</groupId>
 	<artifactId>vcf-leaflet</artifactId>
-	<version>24.0.0</version>
+	<version>24.0.1</version>
 	<name>Leaflet</name>
 	<description>Integration of Leaflet Map for Vaadin Flow</description>
 	<scm>
@@ -13,7 +13,7 @@
 		<developerConnection>scm:git:git@https://github.com/vaadin-component-factory/vcf-leaflet.git</developerConnection>
 	</scm>
 	<properties>
-		<vaadin.version>24.4.7</vaadin.version>
+		<vaadin.version>24.5.2</vaadin.version>
 
 		<maven.compiler.source>17</maven.compiler.source>
 		<maven.compiler.target>17</maven.compiler.target>
