@@ -14,15 +14,14 @@
 
 package org.vaadin.addons.componentfactory.leaflet.demo.utils;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.Objects;
-
-import jakarta.servlet.http.HttpServletRequest;
-
 import com.vaadin.flow.server.VaadinRequest;
 import com.vaadin.flow.server.VaadinService;
 import com.vaadin.flow.server.VaadinServletRequest;
+import javax.servlet.http.HttpServletRequest;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Objects;
 
 public class WebUtils {
 
