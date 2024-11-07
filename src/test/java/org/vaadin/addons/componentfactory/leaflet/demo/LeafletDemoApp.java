@@ -140,9 +140,12 @@ public class LeafletDemoApp extends AppLayout implements AfterNavigationObserver
 				.addSubMenu(PathsStyleExample.class).addTo(appMenu);
 
 		// Controls examples
-		AppMenuItem.create("Controls", new Icon(VaadinIcon.ARROWS)).addSubMenu(RemoveDefaultControlsExample.class)
-        .addSubMenu(LayersControlExample.class)
-				.addSubMenu(ControlPositionExample.class).addSubMenu(ScaleControlExample.class).addTo(appMenu);
+		AppMenuItem.create("Controls", new Icon(VaadinIcon.ARROWS))
+				.addSubMenu(RemoveDefaultControlsExample.class)
+				.addSubMenu(LayersControlExample.class)
+				.addSubMenu(ControlPositionExample.class)
+				.addSubMenu(PrintControlExample.class)
+				.addSubMenu(ScaleControlExample.class).addTo(appMenu);
 
 		// Mixins examples
 
