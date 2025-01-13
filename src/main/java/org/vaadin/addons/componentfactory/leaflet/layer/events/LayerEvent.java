@@ -47,8 +47,6 @@ public abstract class LayerEvent extends LeafletEvent {
     /**
      * -- GETTER --
      *  The layer that was added or removed.
-     *
-     * @return the child
      */
     private Layer child;
 

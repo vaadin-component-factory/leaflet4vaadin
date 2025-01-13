@@ -106,6 +106,8 @@ public interface MapStateOptions extends Serializable {
     /**
      * To set the Crs to one of the defined ones (see <a href="https://leafletjs.com/reference.html#crs">CRS in
      * Leaflet</a>)
+     * @param supportedCrs the name of the supported CRS to set, see
+     * {@link org.vaadin.addons.componentfactory.leaflet.types.CustomSimpleCrs.BaseCrs}
      */
     default void setSupportedCrs(CustomSimpleCrs.BaseCrs supportedCrs) {
         setCrsName(supportedCrs.toLeaflet());

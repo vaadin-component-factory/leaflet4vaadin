@@ -327,8 +327,8 @@ public final class LeafletMap extends Component implements MapModifyStateFunctio
      * in the client we will execute {@code target.functionName(arguments)}
      * </p>
      * @param target The layer that we need as first parameter of functionName
-     * @param functionName
-     * @param arguments
+     * @param functionName name of the function in leaflet-map.js that will be invoked
+     * @param arguments other arguments that will be passed to the function.
      */
     public void executeGeneralJs(Identifiable target, String functionName, Serializable... arguments) {
         logger.info("Execute leaflet general function: {}", functionName);
