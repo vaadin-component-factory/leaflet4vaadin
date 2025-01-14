@@ -28,6 +28,18 @@ This component is based on [leaflet4vaadin](https://github.com/Gubancs/leaflet4v
 	- L.esri.TiledMapLayer 
 	- L.esri.Vector.vectorBasemapLayer
 
+##  New features on branch "vaadin23"
+- support for Vaadin 23 version
+- support for [MousePosition plugin]("https://github.com/ardhi/Leaflet.MousePosition")
+- Google Layer
+- support for a custom CRS
+- MarkerCluster now can set options and the function for the icon creation
+- Listeners works always even if they are added after a layer is added to the map
+- Basic support for [geoman plugin](https://github.com/geoman-io/leaflet-geoman) editing possibilities:
+  - Toolbar Options
+  - Creating and deleting layers
+  - Setting the layer where the new layers will be added
+
 # Using the component in a Flow application with maven
 
 Add the following dependencies in your pom.xml file:
